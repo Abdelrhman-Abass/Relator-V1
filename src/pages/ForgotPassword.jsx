@@ -1,6 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { toast } from "react-toastify";
+
 import {GoogleAuth} from "../components"
 function ForgotPassword() {
   const [email, setEmail] = useState("")
@@ -9,6 +12,16 @@ function ForgotPassword() {
     setEmail(e.target.value);
   }
 
+  async function onSubmit(event) {
+    event.preventDefault();
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Email was sent");
+    } catch (error) {
+      toast.error("Could not send reset password");
+    }
+  }
 
   return (
     <section>
@@ -19,12 +32,9 @@ function ForgotPassword() {
           <img src="https://images.unsplash.com/flagged/photo-1564767609342-620cb19b2357?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1373&q=80" alt="key" className="w-full rounded-2xl" />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
-            
-
+          <form onSubmit={onSubmit}>
             <input className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" type="email" id="email" value={email} onChange={onChange} placeholder="Email Address"/>
 
-            
             <div className="flex justify-between mr-1 ml-1 flex-wrap whitespace-nowrap text-sm sm:text-lg">
               <p className="mb-6">Don't have an account? <Link to='/sighup' className="text-red-600 hover:text-red-800 transition duration-200 ease-in-out ml-1">Register</Link>
               </p>
