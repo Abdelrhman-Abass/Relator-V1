@@ -4,7 +4,7 @@ import Offers from "./Offers";
 import Profile from "./Profile";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-
+import CreateListing from './CreateListing'
 export {
     Home,
     ForgotPassword,
@@ -12,5 +12,6 @@ export {
     Profile,
     SignIn,
     SignUp,
+    CreateListing,
 }
 

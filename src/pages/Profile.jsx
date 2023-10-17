@@ -1,7 +1,8 @@
 import { useState } from "react"
 import {getAuth, updateProfile} from 'firebase/auth'
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
+import {FcHome} from 'react-icons/fc'
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
 
@@ -86,6 +87,14 @@ const Profile = () => {
               <p onClick={onLogout} className="text-blue-600 hover:text-blue-800 cursor-pointer ml-1 transition ease-in-out duration-200">Sign Out</p>
             </div>
           </form>
+
+          <button type="submit" className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-800 transition ease-in-out duration-150 hover:shadow-lg active:bg-blue-900">
+            <Link to='/create-listing' className="flex justify-center items-center">
+              <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2"/>
+              Sell or Rent your Home
+            </Link> 
+          
+          </button>
         </div>
       </section>
     </>
