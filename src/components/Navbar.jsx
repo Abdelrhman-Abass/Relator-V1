@@ -22,19 +22,19 @@ const Navbar = () => {
         <div>
           <ul className="flex space-x-10 ">
             <li
-              className={`cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${isActive("/") && "text-black border-b-red-600 "} `}
+              className={`cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${isActive("/") && "text-black border-b-red-400 "} `}
               onClick={() => navigate("/")}
             >
               Home
             </li>
             <li
-              className={` cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${isActive("/offers") && "text-black border-b-red-600"} `}
+              className={` cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${isActive("/offers") && "text-black border-b-red-400"} `}
               onClick={() => navigate("/offers")}
             >
               Offers
             </li>
             <li
-              className={` cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${isActive("/signing") && "text-black border-b-red-600   "} `}
+              className={`cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${isActive("/signing") && "text-black border-b-red-400   "} `}
               onClick={() => navigate("/signing")}
             >
               SignIn

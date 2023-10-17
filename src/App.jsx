@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 import { BrowserRouter as Router ,Routes , Route } from "react-router-dom";
 import { Home , ForgotPassword , Offers, Profile , SignIn , SignUp } from "./pages";
-import { Navbar } from "./components";
+import { Navbar ,PrivateRoute} from "./components";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,7 +15,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}/>
-        <Route path="/profile" element={<Profile />}/>
+        <Route path="/profile" element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+        </Route>
+        
         <Route path="/signing" element={<SignIn />}/>
         <Route path="/offers" element={<Offers />}/>
         <Route path="/forgot-password" element={<ForgotPassword />}/>
