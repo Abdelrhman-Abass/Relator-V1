@@ -1,9 +1,21 @@
+import { useEffect, useState } from "react";
 import { useLocation , useNavigate} from "react-router-dom"
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const [pageState , setPageState] = useState("Sign in");
+  const auth = getAuth()
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user)=>{
+      if (user){
+        setPageState('Profile')
+      }else{
+        setPageState('Sign In')
+      }
+    })
+  },[auth])
   const isActive = (route) => {
     return location.pathname === route;
   };
@@ -34,10 +46,10 @@ const Navbar = () => {
               Offers
             </li>
             <li
-              className={`cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${isActive("/signing") && "text-black border-b-red-400   "} `}
-              onClick={() => navigate("/signing")}
+              className={`cursor-pointer py-3 text-sm font-bold text-gray-400 border-b-[3px] border-b-transparent ${(isActive("/signing") ||isActive('/profile')) && "text-black border-b-red-400   "} `}
+              onClick={() => navigate("/profile")}
             >
-              SignIn
+              {pageState}
             </li>
           </ul>
         </div>
