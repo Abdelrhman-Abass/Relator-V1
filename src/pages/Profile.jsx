@@ -1,14 +1,17 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {getAuth, updateProfile} from 'firebase/auth'
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
 import {FcHome} from 'react-icons/fc'
-import { doc, updateDoc } from "firebase/firestore";
+import {Listing} from '../components'
+import { collection, doc, query, updateDoc, where,orderBy, getDocs } from "firebase/firestore";
 import { db } from "../firebase.config";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [changeDetail , setChangeDetail] = useState(false);
+  const [listings, setListings] = useState(null);
+  const [loading, setLoading] = useState(true);
   const auth = getAuth()
   const [formData , setFormData] = useState({
     name:auth.currentUser.displayName,
@@ -46,6 +49,27 @@ const Profile = () => {
     }
   }
   const {name , email } =formData;
+
+  useEffect(()=>{
+    async function fetchUserListings(){
+      const listingRef = collection(db , "listings");
+      const querySnapshot = query(listingRef ,where("userRef","==" , auth.currentUser.uid),
+      orderBy("timestamp","desc")
+      );
+      const querySnap = await getDocs(querySnapshot)
+      let listings = [];
+      querySnap.forEach((doc)=>{
+        return listings.push({
+          id:doc.id,
+          data:doc.data(),
+        });
+      });
+      setListings(listings)
+      setLoading(false)
+
+    }
+    fetchUserListings();
+  },[auth.currentUser.uid])
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -97,6 +121,26 @@ const Profile = () => {
           </button>
         </div>
       </section>
+
+      <div>
+        {!loading && listings.length >0 && (
+          <>
+            <h2 className="text-2xl text-center font-semibold ">My Listings</h2>
+            <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            {listings.map((listing) => (
+              // console.log(listing)
+                <Listing
+                  key={listing.id}
+                  id={listing.id}
+                  listing={listing.data}
+                  // onDelete={() => onDelete(listing.id)}
+                  // onEdit={() => onEdit(listing.id)}
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </>
   )
 }
