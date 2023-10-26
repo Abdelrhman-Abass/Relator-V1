@@ -1,6 +1,6 @@
 // import { useState } from 'react'
 import { BrowserRouter as Router ,Routes , Route } from "react-router-dom";
-import { Home , ForgotPassword , Offers, Profile , SignIn , SignUp ,CreateListing} from "./pages";
+import { Home , ForgotPassword , Offers, Profile , SignIn , SignUp ,CreateListing,EditListing} from "./pages";
 import { Navbar ,PrivateRoute} from "./components";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +20,9 @@ function App() {
         </Route>
         <Route path="/create-listing" element={<PrivateRoute />}>
             <Route path="/create-listing" element={<CreateListing />}/>
+        </Route>
+        <Route path="/edit-listing" element={<PrivateRoute />}>
+            <Route path="/edit-listing/:listingId" element={<EditListing />}/>
         </Route>
         
         <Route path="/signing" element={<SignIn />}/>
