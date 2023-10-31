@@ -6,6 +6,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import CreateListing from './CreateListing'
 import EditListing from './EditListing'
+import ListingDetail from './ListingDetail';
 export {
     Home,
     ForgotPassword,
@@ -15,5 +16,6 @@ export {
     SignUp,
     CreateListing,
     EditListing,
+    ListingDetail,
 }
 
