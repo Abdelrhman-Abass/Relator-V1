@@ -2,7 +2,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { db } from "../firebase.config";
-import { Spinner } from "../components";
+import { getAuth } from "firebase/auth";
+
+import { Spinner,Contact } from "../components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation,Autoplay, Pagination,Mousewheel, Keyboard } from 'swiper/modules';
 import {FaShare ,FaMapMarkerAlt ,FaBed,FaBath,FaParking,FaChair } from 'react-icons/fa'
@@ -18,6 +20,8 @@ const ListingDetail = () => {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLink, setShareLink] = useState(false);
+  const [contactLandlord, setContactLandlord] = useState(false);
+  const auth = getAuth()
 
   useEffect(() => {
     async function fetchListing() {
@@ -35,8 +39,6 @@ const ListingDetail = () => {
   if (loading) {
     return <Spinner />;
   }
-  console.log(listing.imgUrls[0])
-
   return (
     <main>
       <Swiper
@@ -80,7 +82,7 @@ const ListingDetail = () => {
       )}
 
       <div className="m-4 flex flex-col md:flex-row max-w-5xl lg:mx-auto p-4 rounded-lg shadow-lg bg-white">
-        <div className=" w-full h-[200px] lg-[400px] rounded-lg">
+        <div className=" w-full rounded-lg">
           <p className="text-2xl font-bold mb-3  text-blue-900 ">{listing.name } - $ {listing.offer
               ? listing.discountedPrice
                   .toString()
@@ -125,7 +127,7 @@ const ListingDetail = () => {
               {listing.furnished ? "Furnished" : "Not furnished"}
             </li>
           </ul>
-          {/* {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (
+          {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (
             <div className="mt-6">
               <button
                 onClick={() => setContactLandlord(true)}
@@ -134,10 +136,10 @@ const ListingDetail = () => {
                 Contact Landlord
               </button>
             </div>
-          )} */}
-          {/* {contactLandlord && (
+          )} 
+          {contactLandlord && (
             <Contact userRef={listing.userRef} listing={listing} />
-          )} */}
+          )}
         </div>
       </div>
       
