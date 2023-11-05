@@ -78,10 +78,10 @@ const ListingDetail = () => {
         <FaShare className="text-lg text-slate-500" />
       </div>
       {shareLink &&(
-        <p className="fixed top-[18%] right-[5%] font-semibold border-2 border-gray-400 rounded-md bg-white z-10 p-2">Copied!</p>
+        <p className="fixed top-[18%] right-[5%] font-semibold border-4 border-gray-400 rounded-xl bg-white z-10 p-2">Copied!</p>
       )}
 
-      <div className="m-4 flex flex-col md:flex-row max-w-5xl lg:mx-auto p-4 rounded-lg shadow-lg bg-white">
+      <div className="m-4 flex flex-col md:flex-row max-w-5xl lg:mx-auto p-4 rounded-lg shadow-xl bg-white">
         <div className=" w-full rounded-lg">
           <p className="text-2xl font-bold mb-3  text-blue-900 ">{listing.name } - $ {listing.offer
               ? listing.discountedPrice
